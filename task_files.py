@@ -1,24 +1,27 @@
-def read_file():
+class File:
+
+    def read_file(self, file_name):
+        try:
+            with open(f'{file_name}', 'r') as file:
+                return file.read()
+        except FileNotFoundError:
+            return "no such file"
+
+
+    def write_into_file(self, file_name, text):
+        with open(f'{file_name}', 'w') as file:
+            file.write(text)
+        file.close()
+
+
+def test_file():
+    file = File()
     file_name = input("enter name of file for reading: ")
-    file = open_file(file_name, 'r')
-    return file.read()
+    print(file.read_file(file_name))
 
-
-def write_into_file():
     file_name = input("enter name of file for whriting: ")
-    file = open_file(file_name, 'w')
     text = input("enter some text: ")
-    file.write(text)
-    file.close()
+    file.write_into_file(file_name, text)
 
 
-def open_file(file_name, mode):
-    try:
-        file = open(f'{file_name}', mode)
-    except FileNotFoundError:
-        print("no such file")
-    return file
-
-
-write_into_file()
-print(read_file())
+test_file()
